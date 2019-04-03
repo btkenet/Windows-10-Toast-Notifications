@@ -78,10 +78,11 @@ class ToastNotifier(object):
         try:
             self.classAtom = RegisterClass(self.wc)
         except Exception as e:
-            self.classAtom = RegisterClass(self.wc)
+            while not self.classAtom:
+                self.classAtom = RegisterClass(self.wc)
             logging.error("Some trouble with the RegisterClass ({}): {}"
                           .format(str(self.classAtom), e))
-            pass #not sure of this
+            #pass #not sure of this
         style = WS_OVERLAPPED | WS_SYSMENU
         self.hwnd = CreateWindow(self.classAtom, "Taskbar", style,
                                  0, 0, CW_USEDEFAULT,
